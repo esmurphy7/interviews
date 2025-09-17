@@ -1,0 +1,35 @@
+# Visual Studio Code
+.vscode/
+
+# Build results
+[Bb]in/
+[Oo]bj/
+
+# NuGet packages
+*.nupkg
+# The packages folder is typically ignored, but can be included if you want to commit
+# specific packages (e.g., for offline builds or security reasons).
+# packages/
+
+# Project files
+*.user
+*.suo
+*.sln.docstates
+*.csproj.user
+
+# Editor-specific files
+*.vspscc
+*.vssscc
+*.vsscc
+*.bak
+*.resharper
+*.dotSettings
+
+# Rider
+.idea/
+
+# macOS
+.DS_Store
+
+# Windows
+Thumbs.db
