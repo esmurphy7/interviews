@@ -6,6 +6,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "stripe", "stripe", "{1B7CCB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screen", "screen", "{5976BD13-6CCF-6500-097E-E6720AF0BE02}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "currency-conversion", "stripe\screen\currency-conversion\currency-conversion.csproj", "{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shipping-cost", "stripe\screen\shipping-cost\shipping-cost.csproj", "{215D6180-5085-1496-E856-3ABB1DF08FAE}"
 EndProject
 Global
@@ -14,6 +16,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{215D6180-5085-1496-E856-3ABB1DF08FAE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{215D6180-5085-1496-E856-3ABB1DF08FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{215D6180-5085-1496-E856-3ABB1DF08FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -24,9 +30,10 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{5976BD13-6CCF-6500-097E-E6720AF0BE02} = {1B7CCBDB-0CC9-9586-99AA-E8A142A62116}
+		{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE} = {5976BD13-6CCF-6500-097E-E6720AF0BE02}
 		{215D6180-5085-1496-E856-3ABB1DF08FAE} = {5976BD13-6CCF-6500-097E-E6720AF0BE02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {55943A24-485C-4D0B-95EB-DF7985A98710}
+		SolutionGuid = {A63A3FB5-D760-4D5D-B6BB-6F3281DE4F69}
 	EndGlobalSection
 EndGlobal
