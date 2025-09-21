@@ -1,4 +1,4 @@
-Microsoft Visual Studio Solution File, Format Version 12.00
+﻿Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
@@ -9,6 +9,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "currency-conversion", "stripe\screen\currency-conversion\currency-conversion.csproj", "{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "shipping-cost", "stripe\screen\shipping-cost\shipping-cost.csproj", "{215D6180-5085-1496-E856-3ABB1DF08FAE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "codesignal", "codesignal", "{D81E09D9-0B34-459F-97C3-8649CE0ADEC6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "banking-system", "codesignal\banking-system\banking-system.csproj", "{D92F7FDE-7FB9-4A8D-90C3-658B01FCF0C7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 		{215D6180-5085-1496-E856-3ABB1DF08FAE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{215D6180-5085-1496-E856-3ABB1DF08FAE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{215D6180-5085-1496-E856-3ABB1DF08FAE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D92F7FDE-7FB9-4A8D-90C3-658B01FCF0C7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D92F7FDE-7FB9-4A8D-90C3-658B01FCF0C7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D92F7FDE-7FB9-4A8D-90C3-658B01FCF0C7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D92F7FDE-7FB9-4A8D-90C3-658B01FCF0C7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -32,6 +40,7 @@ Global
 		{5976BD13-6CCF-6500-097E-E6720AF0BE02} = {1B7CCBDB-0CC9-9586-99AA-E8A142A62116}
 		{40EC4E91-CFFD-6A62-2EE8-35E2A85417DE} = {5976BD13-6CCF-6500-097E-E6720AF0BE02}
 		{215D6180-5085-1496-E856-3ABB1DF08FAE} = {5976BD13-6CCF-6500-097E-E6720AF0BE02}
+		{D92F7FDE-7FB9-4A8D-90C3-658B01FCF0C7} = {D81E09D9-0B34-459F-97C3-8649CE0ADEC6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A63A3FB5-D760-4D5D-B6BB-6F3281DE4F69}
