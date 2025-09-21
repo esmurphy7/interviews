@@ -31,6 +31,7 @@ public class Solution
             this.TxsBySrcAccountId[accountId].Add(new Transaction
             {
                 Timestamp = timestamp,
+                Amount = amount,
                 SrcAccount = accountId,
                 DestAccount = accountId,
                 Type = TransactionType.Deposit,
@@ -66,6 +67,7 @@ public class Solution
                 this.TxsBySrcAccountId[srcAccountId].Add(new Transaction
                 {
                     Timestamp = timestamp,
+                    Amount = amount,
                     SrcAccount = srcAccountId,
                     DestAccount = destAccountId,
                     Type = TransactionType.Transfer,
@@ -76,6 +78,36 @@ public class Solution
         }
 
         return null;
+    }
+
+    public List<string> GetTopSpenders(int timestamp, int n)
+    {
+        var spendsByAccount = new Dictionary<string, int>();
+        foreach (var accountId in this.TxsBySrcAccountId.Keys)
+        {
+            foreach (var tx in this.TxsBySrcAccountId[accountId])
+            {
+                if (!spendsByAccount.ContainsKey(accountId))
+                {
+                    spendsByAccount[accountId] = 0;
+                }
+                
+                if (tx.Type == TransactionType.Transfer)
+                {
+                    spendsByAccount[accountId] += tx.Amount;
+                }
+            }
+        }
+
+        var topSpenders = spendsByAccount.OrderByDescending(s => s.Value).ThenBy(s => s.Key).Take(n).ToDictionary();
+
+        var result = new List<string>();
+        foreach (var topSpender in topSpenders)
+        {
+            result.Add($"{topSpender.Key}({topSpender.Value})");
+        }
+
+        return result;
     }
 
     public void PrintAll()
@@ -140,6 +172,7 @@ public class Account
 public class Transaction
 {
     public int Timestamp { get; set; }
+    public int Amount { get; set; }
     public string SrcAccount { get; set; }
     public string DestAccount { get; set; }
     public TransactionType Type { get; set; }
