@@ -1,4 +1,3 @@
-using System.Transactions;
 
 public class Solution
 {
@@ -32,6 +31,7 @@ public class Solution
             this.TxsBySrcAccountId[accountId].Add(new Transaction
             {
                 Timestamp = timestamp,
+                SrcAccount = accountId,
                 DestAccount = accountId,
                 Type = TransactionType.Deposit,
             });
@@ -103,6 +103,7 @@ public class Solution
             Console.WriteLine($"balance: {account.Balance}");
         }
     }
+
 
     public void PrintTransactions()
     {
