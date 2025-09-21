@@ -93,15 +93,12 @@ public class Solution
     public List<string> GetTopSpenders(int timestamp, int n)
     {
         var spendsByAccount = new Dictionary<string, int>();
-        foreach (var accountId in this.TxsBySrcAccountId.Keys)
+        foreach (var accountId in this.AccountsbyId.Keys)
         {
+            spendsByAccount[accountId] = 0;
+
             foreach (var tx in this.TxsBySrcAccountId[accountId])
             {
-                if (!spendsByAccount.ContainsKey(accountId))
-                {
-                    spendsByAccount[accountId] = 0;
-                }
-
                 if (tx.Type == TransactionType.Transfer
                     || tx.Type == TransactionType.Withdrawal)
                 {

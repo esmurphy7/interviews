@@ -32,7 +32,7 @@
         // solution.Deposit(6, "account3", 4000);
 
         // var topSpenders = solution.GetTopSpenders(7, 3);
-        // Console.WriteLine($"topSpenders: {string.Join(',', topSpenders)}");
+        // Console.WriteLine($"topSpenders ({3}): {string.Join(',', topSpenders)}");
 
         // solution.Transfer(8, "account3", "account2", 500);
         // solution.Transfer(9, "account3", "account1", 1000);
@@ -40,7 +40,7 @@
         // solution.PrintAll();
 
         // topSpenders = solution.GetTopSpenders(11, 3);
-        // Console.WriteLine($"topSpenders: {string.Join(',', topSpenders)}");
+        // Console.WriteLine($"topSpenders ({3}): {string.Join(',', topSpenders)}");
 
         // =====================
         // Part 3
@@ -65,7 +65,7 @@
         Console.WriteLine($"payment1 status: {status}");
 
         var topSpenders = solution.GetTopSpenders(104, 2);
-        Console.WriteLine($"topSpenders: {string.Join(',', topSpenders)}");
+        Console.WriteLine($"topSpenders ({2}): {string.Join(',', topSpenders)}");
 
         var balance = solution.Deposit(3 + MsPerDay, "account1", 100);
         Console.WriteLine($"account1 balance: {balance}");
