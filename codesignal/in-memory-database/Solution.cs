@@ -10,16 +10,14 @@ public class Solution
             this.recordsById[recordId] = new Record
             {
                 Id = recordId,
-                ValuesByField = new Dictionary<string, string>
-                {
-                    { field, value },
-                },
             };
         }
-        else
+
+        this.recordsById[recordId].PairsByField[field] = new Pair
         {
-            this.recordsById[recordId].ValuesByField[field] = value;
-        }
+            Id = field,
+            Value = value
+        };
 
         return string.Empty;
     }
@@ -31,12 +29,12 @@ public class Solution
             return string.Empty;
         }
 
-        if (!this.recordsById[recordId].ValuesByField.ContainsKey(field))
+        if (!this.recordsById[recordId].PairsByField.ContainsKey(field))
         {
             return string.Empty;
         }
 
-        return this.recordsById[recordId].ValuesByField[field];
+        return this.recordsById[recordId].PairsByField[field].Value;
     }
 
     public string Delete(string recordId, string field)
@@ -46,12 +44,12 @@ public class Solution
             return "false";
         }
 
-        if (!this.recordsById[recordId].ValuesByField.ContainsKey(field))
+        if (!this.recordsById[recordId].PairsByField.ContainsKey(field))
         {
             return "false";
         }
 
-        this.recordsById[recordId].ValuesByField.Remove(field);
+        this.recordsById[recordId].PairsByField.Remove(field);
 
         return "true";
     }
@@ -64,9 +62,9 @@ public class Solution
         }
 
         var result = new List<string>();
-        foreach (var pair in this.recordsById[recordId].ValuesByField)
+        foreach (var pair in this.recordsById[recordId].PairsByField.Values)
         {
-            result.Add($"{pair.Key}({pair.Value})");
+            result.Add($"{pair.Id}({pair.Value})");
         }
 
         return string.Join(",", result);
@@ -80,11 +78,11 @@ public class Solution
         }
 
         var result = new List<string>();
-        foreach (var pair in this.recordsById[recordId].ValuesByField)
+        foreach (var pair in this.recordsById[recordId].PairsByField.Values)
         {
-            if (pair.Key.StartsWith(fieldPrefix))
+            if (pair.Id.StartsWith(fieldPrefix))
             {
-                result.Add($"{pair.Key}({pair.Value})");
+                result.Add($"{pair.Id}({pair.Value})");
             }
         }
 
@@ -93,7 +91,90 @@ public class Solution
         return string.Join(",", result);
     }
 
+    public string SetAt(string recordId, string field, string value, int timestamp)
+    {
+        this.Set(recordId, field, value);
 
+        var pair = this.recordsById[recordId].PairsByField[field];
+        pair.Timestamp = timestamp;
+
+        return string.Empty;
+    }
+
+    public string SetAtWithTtl(string recordId, string field, string value, int timestamp, int ttl)
+    {
+        this.SetAt(recordId, field, value, timestamp);
+
+        var pair = this.recordsById[recordId].PairsByField[field];
+        pair.Ttl = ttl;
+
+        return string.Empty;
+    }
+
+    public string GetAt(string recordId, string field, int timestamp)
+    {
+        var result = this.Get(recordId, field);
+
+        if (this.recordsById[recordId].PairsByField[field].IsExpired(timestamp))
+        {
+            return string.Empty;
+        }
+
+        return result;
+    }
+
+    public string DeleteAt(string recordId, string field, int timestamp)
+    {
+        if (!this.recordsById.ContainsKey(recordId))
+        {
+            return "false";
+        }
+
+        if (!this.recordsById[recordId].PairsByField.ContainsKey(field))
+        {
+            return "false";
+        }
+
+        if (this.recordsById[recordId].PairsByField[field].IsExpired(timestamp))
+        {
+            return "false";
+        }
+
+        return this.Delete(recordId, field);
+    }
+
+    public string ScanAt(string recordId, int timestamp)
+    {
+
+        var result = new List<string>();
+        foreach (var pair in this.recordsById[recordId].PairsByField.Values)
+        {
+            if (!pair.IsExpired(timestamp))
+            {
+                result.Add($"{pair.Id}({pair.Value})");                
+            }
+        }
+
+        return string.Join(",", result);        
+    }
+
+    public string ScanAtPrefix(string recordId, string fieldPrefix, int timestamp)
+    {
+
+        var result = new List<string>();
+        foreach (var pair in this.recordsById[recordId].PairsByField.Values)
+        {
+            if (!pair.IsExpired(timestamp))
+            {
+                if (pair.Id.StartsWith(fieldPrefix))
+                {
+                    result.Add($"{pair.Id}({pair.Value})");
+                }
+            }
+        }
+
+        return string.Join(",", result);
+    }
 
     public void PrintState()
     {
@@ -101,9 +182,9 @@ public class Solution
         foreach (var record in this.recordsById)
         {
             Console.WriteLine($"'{record.Key}': ");
-            foreach (var pair in record.Value.ValuesByField)
+            foreach (var pair in record.Value.PairsByField.Values)
             {
-                Console.WriteLine($"  '{pair.Key}':'{pair.Value}'");
+                Console.WriteLine($"  '{pair.Id}':'{pair.Value}', {pair.Timestamp}, {pair.Ttl}");
             }
         }
     }
@@ -113,5 +194,27 @@ public class Solution
 public class Record
 {
     public string Id { get; set; }
-    public Dictionary<string, string> ValuesByField = new Dictionary<string, string>();
+    public Dictionary<string, Pair> PairsByField = new Dictionary<string, Pair>();
+}
+
+public class Pair
+{
+    public string Id { get; set; }
+    public string Value { get; set; }
+    public int Timestamp { get; set; }
+    public int? Ttl { get; set; } = null;
+    public bool IsExpired(int timestamp)
+    {
+        if (this.Ttl == null)
+        {
+            return false;
+        }
+
+        if ((this.Timestamp + this.Ttl) > timestamp)
+        {
+            return false;
+        }
+
+        return true;
+    }
 }
