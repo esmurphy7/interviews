@@ -63,26 +63,60 @@ public class Program
         // ================
         // Level 3.2
         // ================
-        solution.SetAt("A", "B", "C", 1);
-        solution.SetAtWithTtl("X", "Y", "Z", 2, 15);
+        // solution.SetAt("A", "B", "C", 1);
+        // solution.SetAtWithTtl("X", "Y", "Z", 2, 15);
+        // solution.PrintState();
+
+        // var result = solution.GetAt("X", "Y", 3);
+        // Console.WriteLine($"[3]GetAt X.Y: {result}");
+
+        // solution.SetAtWithTtl("A", "D", "E", 4, 10);
+        // solution.PrintState();
+
+        // result = solution.ScanAt("A", 13);
+        // Console.WriteLine($"[13]ScanAt A: {result}");
+
+        // result = solution.ScanAt("X", 16);
+        // Console.WriteLine($"[16]ScanAt X: {result}");
+
+        // result = solution.ScanAt("X", 17);
+        // Console.WriteLine($"[17]ScanAt X: {result}");
+
+        // result = solution.DeleteAt("X", "Y", 20);
+        // Console.WriteLine($"[20]DeletAt X.Y: {result}");
+
+        // ================
+        // Level 4
+        // ================
+        solution.SetAtWithTtl("A", "B", "C", 1, 10);
         solution.PrintState();
 
-        var result = solution.GetAt("X", "Y", 3);
-        Console.WriteLine($"[3]GetAt X.Y: {result}");
+        var result = solution.Backup(3);
+        Console.WriteLine($"[3]Backup: {result}");
 
-        solution.SetAtWithTtl("A", "D", "E", 4, 10);
+        solution.SetAt("A", "D", "E", 4);
         solution.PrintState();
 
-        result = solution.ScanAt("A", 13);
-        Console.WriteLine($"[13]ScanAt A: {result}");
+        result = solution.Backup(5);
+        Console.WriteLine($"[5]Backup: {result}");
 
-        result = solution.ScanAt("X", 16);
-        Console.WriteLine($"[16]ScanAt X: {result}");
+        result = solution.DeleteAt("A", "B", 8);
+        Console.WriteLine($"[8]DeleteAt A.B: {result}");
 
-        result = solution.ScanAt("X", 17);
-        Console.WriteLine($"[17]ScanAt X: {result}");
+        result = solution.Backup(9);
+        Console.WriteLine($"[9]Backup: {result}");
 
-        result = solution.DeleteAt("X", "Y", 20);
-        Console.WriteLine($"[20]DeletAt X.Y: {result}");
+        result = solution.Restore(10, 7);
+        Console.WriteLine($"[10]Restore 7: {result}");
+        solution.PrintState();
+
+        result = solution.Backup(11);
+        Console.WriteLine($"[11]Backup: {result}");
+
+        result = solution.ScanAt("A", 15);
+        Console.WriteLine($"[15]ScanAt A: {result}");
+
+        result = solution.ScanAt("A", 16);
+        Console.WriteLine($"[16]ScanAt A: {result}");
     }
 }

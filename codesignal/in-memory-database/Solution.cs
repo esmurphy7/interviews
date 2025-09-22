@@ -2,6 +2,7 @@
 public class Solution
 {
     private Dictionary<string, Record> recordsById = new Dictionary<string, Record>();
+    private Dictionary<int, Solution> backupsByTimestamp = new Dictionary<int, Solution>();
 
     public string Set(string recordId, string field, string value)
     {
@@ -174,6 +175,85 @@ public class Solution
         }
 
         return string.Join(",", result);
+    }
+
+    public string Backup(int timestamp)
+    {
+        // create a backup instance
+        // collect every pair whose timestamp is <= the given backup timestamp
+        // add each pair to the backup instance
+        // store the backup
+        // return the number of pairs added
+
+        var backup = new Solution();
+        foreach (var record in this.recordsById.Values)
+        {
+            var newRecord = new Record
+            {
+                Id = record.Id,
+            };
+
+            foreach (var pair in record.PairsByField.Values)
+            {
+                if (pair.Timestamp <= timestamp)
+                {
+                    newRecord.PairsByField[pair.Id] = new Pair
+                    {
+                        Id = pair.Id,
+                        Value = pair.Value,
+                        Timestamp = pair.Timestamp,
+                        Ttl = pair.Ttl,
+                    };
+                }
+            }
+
+            if (newRecord.PairsByField.Values.Count > 0)
+            {
+                backup.recordsById[record.Id] = newRecord;
+            }
+        }
+
+        this.backupsByTimestamp[timestamp] = backup;
+
+        return backup.recordsById.Values.Count.ToString();
+    }
+
+    public string Restore(int timestamp, int timestampToRestore)
+    {
+        var backupTimestamp = 0;
+        foreach (var t in this.backupsByTimestamp.Keys.Order().ToList())
+        {
+            if (t <= timestampToRestore)
+            {
+                backupTimestamp = t;
+            }
+        }
+
+        var backup = this.backupsByTimestamp[backupTimestamp];
+
+        // foreach record in the backup
+        // foreach pair in the record
+        // calculate the pair's remaining lifespan
+        // --> remaining lifespan = pair's ttl - elapsed time
+        // ---> elapsed time = backup time - pair's time
+        // set the pair's ttl as the remaining lifespan
+        // set the pair's timestamp as the time when restore was called
+        // replace this instance's records with the backup's records
+
+        foreach (var record in backup.recordsById.Values)
+        {
+            foreach (var pair in record.PairsByField.Values)
+            {
+                var elapsedTime = backupTimestamp - pair.Timestamp;
+                var remainingLifespan = pair.Ttl - elapsedTime;
+                pair.Ttl = remainingLifespan;
+                pair.Timestamp = timestamp;
+            }
+        }
+
+        this.recordsById = backup.recordsById;
+
+        return string.Empty;
     }
 
     public void PrintState()
