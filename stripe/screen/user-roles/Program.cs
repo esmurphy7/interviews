@@ -40,6 +40,7 @@
         };
 
         solution = new Solution(accounts, roleAssignments);
+
         result = solution.GetInheritedRoles("user1", "org1");
         Console.WriteLine($"GetInheritedRoles user1,org1: {string.Join(",", result)}");
         result = solution.GetInheritedRoles("user1", "workspace1");
@@ -49,5 +50,39 @@
 
         result = solution.GetInheritedRoles("user1", "org2");
         Console.WriteLine($"GetInheritedRoles user1,org2: {string.Join(",", result)}");
+
+        // ===================
+        // Part 3
+        // ===================
+        accounts = new List<string>
+        {
+            "{\"accountId\": \"org1\", \"parent\": \"null\"}",
+            "{\"accountId\": \"workspace1\", \"parent\": \"org1\"}",
+            "{\"accountId\": \"project1\", \"parent\": \"workspace1\"}",
+            "{\"accountId\": \"org2\", \"parent\": \"null\"}",
+        };
+
+        roleAssignments = new List<string>
+        {
+            "{ \"userId\": \"user1\", \"accountId\" : \"org1\", \"role\" : \"reader\"}",
+            "{ \"userId\": \"user2\", \"accountId\" : \"workspace1\", \"role\" : \"writer\"}",
+            "{ \"userId\": \"user3\", \"accountId\" : \"project1\", \"role\" : \"admin\"}",
+            "{ \"userId\": \"user1\", \"accountId\" : \"org2\", \"role\" : \"reader\"}",
+        };
+
+        solution = new Solution(accounts, roleAssignments);
+
+        result = solution.GetUsersForAccount("org1");
+        Console.WriteLine($"GetUsersForAccount org1: {string.Join(",", result)}");
+
+        result = solution.GetUsersForAccount("workspace1");
+        Console.WriteLine($"GetUsersForAccount workspace1: {string.Join(",", result)}");
+
+        result = solution.GetUsersForAccount("project1");
+        Console.WriteLine($"GetUsersForAccount project1: {string.Join(",", result)}");
+
+        result = solution.GetUsersForAccount("org2");
+        Console.WriteLine($"GetUsersForAccount org2: {string.Join(",", result)}");
+
     }
 }

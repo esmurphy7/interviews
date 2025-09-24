@@ -1,3 +1,4 @@
+using System.Reflection.Metadata;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
@@ -65,6 +66,38 @@ public class Solution
         }
 
         return roles.Select(r => r.role).ToList();
+    }
+
+    public List<string> GetUsersForAccount(string accountId)
+    {
+        var targetAccounts = new List<string>();
+        if (this.accountsById.TryGetValue(accountId, out var directAccount))
+        {
+            targetAccounts.Add(directAccount.accountId);
+
+            var childAccount = this.accountsById.Values.Where(a => a.parent == directAccount.accountId).FirstOrDefault();
+            if (childAccount != null)
+            {
+                targetAccounts.Add(childAccount.accountId);
+
+                var grandChildAccount = this.accountsById.Values.Where(a => a.parent == childAccount.accountId).FirstOrDefault();
+                if (grandChildAccount != null)
+                {
+                    targetAccounts.Add(grandChildAccount.accountId);
+                }
+            }
+        }
+
+        var users = new List<string>();
+        foreach (var roleByUserId in this.rolesByUserId)
+        {
+            if (roleByUserId.Value.Any(r => targetAccounts.Contains(r.accountId)))
+            {
+                users.Add(roleByUserId.Key);
+            }
+        }
+
+        return users;
     }
 }
 
