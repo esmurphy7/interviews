@@ -9,16 +9,16 @@ Your task is to implement the following features:
 
 ### Part 1
 
-Direct Conversion: Given two currency codes (e.g., AUD and USD), if a direct exchange rate between them exists in the input, return that conversion rate.
+`Direct Conversion`: Given two currency codes (e.g., AUD and USD), if a direct exchange rate between them exists in the input, return that conversion rate.
 
 ### Part 2
 
-Single Intermediate Conversion: If a direct conversion doesn't exist, allow for a conversion through a single intermediate currency (e.g., convert CAD to AUD via USD). Return the calculated exchange rate if this conversion is possible.
+`Single Intermediate Conversion`: If a direct conversion doesn't exist, allow for a conversion through a single intermediate currency (e.g., convert CAD to AUD via USD). Return the calculated exchange rate if this conversion is possible.
 
 ### Part 3
 
-Best Conversion Rate: When performing conversions with an intermediate currency, return the "best" exchange rate available. You may discuss with the interviewer what "best" means (e.g., highest or lowest conversion rate depending on context).
+`Best Conversion Rate`: When performing conversions with an intermediate currency, return the "best" exchange rate available. You may discuss with the interviewer what "best" means (e.g., highest or lowest conversion rate depending on context).
 
 ### Part 4
 
-Multiple Conversions: Without restricting the number of conversions, determine if a conversion is possible between any two currencies.
+`Multiple Conversions`: Without restricting the number of conversions, determine if a conversion is possible between any two currencies.
