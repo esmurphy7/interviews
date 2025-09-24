@@ -18,6 +18,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "in-memory-database", "codes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cloud-filesystem", "codesignal\cloud-filesystem\cloud-filesystem.csproj", "{5FB067F4-95BF-46CA-8D92-C678E1CE76DD}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "user-roles", "stripe\screen\user-roles\user-roles.csproj", "{6E4BEAF5-F21E-4F49-A887-E13B0C3D0BFA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{5FB067F4-95BF-46CA-8D92-C678E1CE76DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5FB067F4-95BF-46CA-8D92-C678E1CE76DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5FB067F4-95BF-46CA-8D92-C678E1CE76DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6E4BEAF5-F21E-4F49-A887-E13B0C3D0BFA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6E4BEAF5-F21E-4F49-A887-E13B0C3D0BFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6E4BEAF5-F21E-4F49-A887-E13B0C3D0BFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6E4BEAF5-F21E-4F49-A887-E13B0C3D0BFA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,6 +61,7 @@ Global
 		{D92F7FDE-7FB9-4A8D-90C3-658B01FCF0C7} = {D81E09D9-0B34-459F-97C3-8649CE0ADEC6}
 		{70078602-52A0-483B-9080-62E8F2B47296} = {D81E09D9-0B34-459F-97C3-8649CE0ADEC6}
 		{5FB067F4-95BF-46CA-8D92-C678E1CE76DD} = {D81E09D9-0B34-459F-97C3-8649CE0ADEC6}
+		{6E4BEAF5-F21E-4F49-A887-E13B0C3D0BFA} = {5976BD13-6CCF-6500-097E-E6720AF0BE02}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {A63A3FB5-D760-4D5D-B6BB-6F3281DE4F69}
