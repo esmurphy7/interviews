@@ -36,6 +36,36 @@ public class Solution
 
         return roleStrs;
     }
+
+    public List<string> GetInheritedRoles(string userId, string accountId)
+    {
+        var roles = new List<RoleAssignment>();
+        if (this.rolesByUserId.TryGetValue(userId, out var roleAssignments))
+        {
+            var directRoles = roleAssignments.Where(r => r.accountId == accountId).ToList();
+            roles.AddRange(directRoles);
+
+            if (this.accountsById.TryGetValue(accountId, out var directAccount))
+            {
+                if (directAccount.parent != null)
+                {
+                    var parentRoles = roleAssignments.Where(r => r.accountId == directAccount.parent).ToList();
+                    roles.AddRange(parentRoles);
+
+                    if (this.accountsById.TryGetValue(directAccount.parent, out var parentAccount))
+                    {
+                        if (parentAccount.parent != null)
+                        {
+                            var grandParentRoles = roleAssignments.Where(r => r.accountId == parentAccount.parent).ToList();
+                            roles.AddRange(grandParentRoles);
+                        }
+                    }
+                }
+            }
+        }
+
+        return roles.Select(r => r.role).ToList();
+    }
 }
 
 public class Account
