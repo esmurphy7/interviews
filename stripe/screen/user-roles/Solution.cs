@@ -99,6 +99,52 @@ public class Solution
 
         return users;
     }
+
+    public List<string> GetUsersForAccountWithFilter(string accountId, List<string> roleFilters)
+    {
+        // collect all relevant accounts
+
+        // collect all relevant user ids
+        // foreach user's set of roles
+        // get all roles whose account ids are in the relevant set
+        // if the set of relevant roles contains all role filters
+        // -> add the user to the set of relevant user ids
+        // return the relevant user ids
+
+        var relevantAccountIds = new List<string>();
+        if (this.accountsById.TryGetValue(accountId, out var directAccount))
+        {
+            relevantAccountIds.Add(directAccount.accountId);
+
+            if (directAccount.parent != null)
+            {
+                if (this.accountsById.TryGetValue(directAccount.parent, out var parentAccount))
+                {
+                    relevantAccountIds.Add(parentAccount.accountId);
+
+                    if (parentAccount.parent != null)
+                    {
+                        if (this.accountsById.TryGetValue(parentAccount.parent, out var grandparentAccount))
+                        {
+                            relevantAccountIds.Add(grandparentAccount.accountId);
+                        }
+                    }
+                }
+            }
+        }
+
+        var userIds = new List<string>();
+        foreach (var rolesByUserId in this.rolesByUserId)
+        {
+            var relevantRoles = rolesByUserId.Value.Where(r => relevantAccountIds.Contains(r.accountId)).Select(r => r.role).ToList();
+            if (roleFilters.All(r => relevantRoles.Contains(r)))
+            {
+                userIds.Add(rolesByUserId.Key);
+            }
+        }
+
+        return userIds;
+    }
 }
 
 public class Account
